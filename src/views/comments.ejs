@@ -11,6 +11,19 @@
       <p>Conteúdo do comentário 1</p>
     </li>
   </ul>
+
+  <!-- Extra -->
+  <div class="container">
+    <h3>Adicione um comentário</h3>
+    <hr/>
+
+    <form method="POST" action="/savecomment">
+      <input type="text" placeholder="Autor" name="title"/>
+      <textarea type="text" placeholder="Conteúdo" name="description"></textarea>
+      <button> Comentar </button>
+    </form>
+
+  </div>
 </section>
 
 <script>
@@ -35,10 +48,6 @@
       loadComments() {
         //TODO: Criar função que realiza a chamada na API retornando os comentários pelo id do post
         //para usar o id do post utilize a constate postId criada a cima
-        http.get("/comments/" + postId).then((response) => {
-          this.comments = response.data;
-          console.log(response.data)
-        });
       }
     },
     mounted() {

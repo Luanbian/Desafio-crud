@@ -23,4 +23,17 @@ router.get('/:id/post', (request, response) => {
   })
 })
 
+// EXTRA
+const app = express()
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+router.post('/savecomment', (req, res) => {
+  const title = req.body.title
+  const description = req.body.description
+  res.send(`${title} + ${description}`)
+})
+
 module.exports = router
