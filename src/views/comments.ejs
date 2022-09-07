@@ -9,7 +9,8 @@
     <li v-for="comment in comments" :key="comment.id">
       <h5>{{comment.UserName}}</h5>
       <p>{{comment.Comment}}</p>
-      <p>{{comment.PostId}}</p>
+      </div>{{comment.PostId}}</div>
+      <div>{{post.Id}}</div>
     </li>
   </ul>
 
@@ -50,7 +51,7 @@
       loadComments() {
         //TODO: Criar função que realiza a chamada na API retornando os comentários pelo id do post
         //para usar o id do post utilize a constate postId criada a cima
-        http.get("/savecomment/").then((response) => {
+        http.get("/savecomment/" + postId).then((response) => {
           this.comments = response.data
         })
       }
