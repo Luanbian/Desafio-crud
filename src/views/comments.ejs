@@ -13,16 +13,16 @@
   </ul>
 
   <!-- Extra -->
-  <div class="container">
+  <div class="All-form">
     <h3>Adicione um comentário</h3>
     <hr/>
 
-    <form method="POST" action="/api/savecomment" @submit.prevent="checkForm">
-      <input type="text" placeholder="Autor" name="UserName" v-model="UserName"></input>
-      <textarea type="text" placeholder="Conteúdo" name="Comment" v-model="Comment"></textarea>
+    <form method="POST" action="/api/savecomment" @submit.prevent="checkForm" id="formulario">
+      <input type="text" placeholder="Autor" name="UserName" v-model="UserName" id="autor"></input>
+      <textarea type="text" placeholder="Comentário" name="Comment" v-model="Comment" rows="5"></textarea>
       <input type="hidden" value="<%- postId %>" name="PostId">
       <input type="submit" name="comentar" id="submit" value="Comentar">
-    </form>
+    </form> 
 
   </div>
 </section>
@@ -56,17 +56,18 @@
         })
       },
       async checkForm() {
-        await http.post(`/savecomment`, {
-          UserName: this.UserName,
-          Comment: this.Comment,
-          PostId: postId
-        })
         if(!this.UserName || !this.Comment){
           alert('preencha todos os campos')
+        } else {
+          await http.post(`/savecomment`, {
+            UserName: this.UserName,
+            Comment: this.Comment,
+            PostId: postId
+          })
+          this.loadComments()
+          this.UserName = null
+          this.Comment = null
         }
-        this.loadComments()
-        this.UserName = null
-        this.Comment = null
       }
     },
     mounted() {

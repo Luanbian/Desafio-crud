@@ -5,9 +5,35 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="304workaround" content="2013-10-24 21:17:23" />
-
   <title><%- title %></title>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <style>
+    .All-form{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 70px;
+    }
+    #formulario{
+      display: flex;
+      flex-direction: column;
+    }
+    #autor{
+      height: 50px;
+      margin-bottom: 15px;
+    }
+    #submit{
+      margin-top: 15px;
+      height: 40px;
+      background-color: rgb(11, 126, 11);
+      color: white;
+    }
+    #submit:hover{
+      background-color: rgb(17, 182, 17);
+    }
+  </style>
 </head>
