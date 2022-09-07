@@ -1,14 +1,26 @@
 const knex = require('../config/database')
-
+const CommentService = require('../service/commentService')
 module.exports = class CommentController {
   // TODO: Criar metodo que retorna a lista de comentarios no banco de dados
   static async listComments (req, res, next) {
-    try {
-      const result = await knex('Comments')
-      return res.json(result)
-    } catch (error) {
-      next(error)
-    }
+    await CommentService.listComments(req.params.id).then(
+      async () => {
+        try {
+          const result = await knex.select(
+            'Id',
+            'PostId',
+            'UserName',
+            'Comment',
+            'CreatedAt',
+            'UpdatedAt'
+          )
+            .from('Comments')
+            .where({ PostId: req.params.id })
+          return res.json(result)
+        } catch (error) {
+          next(error)
+        }
+      })
   }
 
   // EXTRA

@@ -9,8 +9,6 @@
     <li v-for="comment in comments" :key="comment.id">
       <h5>{{comment.UserName}}</h5>
       <p>{{comment.Comment}}</p>
-      </div>{{comment.PostId}}</div>
-      <div>{{post.Id}}</div>
     </li>
   </ul>
 
@@ -19,11 +17,11 @@
     <h3>Adicione um comentário</h3>
     <hr/>
 
-    <form method="POST" action="/api/savecomment">
-      <input type="text" placeholder="Autor" name="UserName"/>
-      <textarea type="text" placeholder="Conteúdo" name="Comment"></textarea>
+    <form method="POST" action="/api/savecomment" @submit.prevent="checkForm">
+      <input type="text" placeholder="Autor" name="UserName" v-model="UserName"></input>
+      <textarea type="text" placeholder="Conteúdo" name="Comment" v-model="Comment"></textarea>
       <input type="hidden" value="<%- postId %>" name="PostId">
-      <button> Comentar </button>
+      <input type="submit" name="comentar" id="submit" value="Comentar">
     </form>
 
   </div>
@@ -40,7 +38,9 @@
     el: "#app",
     data: {
       post: {},
-      comments: []
+      comments: [],
+      UserName: null,
+      Comment: null,
     },
     methods: {
       loadPost() {
@@ -54,6 +54,19 @@
         http.get("/savecomment/" + postId).then((response) => {
           this.comments = response.data
         })
+      },
+      async checkForm() {
+        await http.post(`/savecomment`, {
+          UserName: this.UserName,
+          Comment: this.Comment,
+          PostId: postId
+        })
+        if(!this.UserName || !this.Comment){
+          alert('preencha todos os campos')
+        }
+        this.loadComments()
+        this.UserName = null
+        this.Comment = null
       }
     },
     mounted() {
