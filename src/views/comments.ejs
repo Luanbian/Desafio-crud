@@ -6,9 +6,9 @@
   <h3>Comentários</h3>
   <ul>
     <!-- Utilize looping v-for do VueJs para exibir os comentários (título e conteúdo) de forma dinâmica -->
-    <li>
-      <h5>Autor Comentario 1</h5>
-      <p>Conteúdo do comentário 1</p>
+    <li v-for="comment in comments" :key="comment.id">
+      <h5>{{comment.UserName}}</h5>
+      <p>{{comment.Comment}}</p>
     </li>
   </ul>
 
@@ -20,6 +20,7 @@
     <form method="POST" action="/savecomment">
       <input type="text" placeholder="Autor" name="title"/>
       <textarea type="text" placeholder="Conteúdo" name="description"></textarea>
+      <input type="hidden" name="comentario" value="<%- postId %>">
       <button> Comentar </button>
     </form>
 
@@ -48,13 +49,15 @@
       loadComments() {
         //TODO: Criar função que realiza a chamada na API retornando os comentários pelo id do post
         //para usar o id do post utilize a constate postId criada a cima
+        http.get("/savecomment/").then((response) => {
+          this.comments = response.data
+        })
       }
     },
     mounted() {
       this.loadPost();
       //TODO: Faça a chamada da função que carrega os comentários
       this.loadComments();
-
     },
   });
 </script>

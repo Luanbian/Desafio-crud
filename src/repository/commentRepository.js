@@ -14,7 +14,6 @@ module.exports = class CommentRepository {
         'UpdatedAt'
       )
       .from('Comments')
-      .where({ 'Posts.Id': 'PostId' })
 
     return console.log(result)
   }

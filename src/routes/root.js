@@ -27,8 +27,8 @@ router.get('/:id/post', (request, response) => {
 const app = express()
 const bodyParser = require('body-parser')
 
-app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 router.post('/savecomment', (req, res) => {
   const title = req.body.title
